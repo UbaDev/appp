@@ -1,20 +1,23 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { LogBox } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { AppNavegacion } from "./src/navegacion/AppNavegacion";
+import Toast from "react-native-toast-message";
+import { NativeBaseProvider, View, Text } from "native-base";
+
+import { Provider as PaperProvider } from "react-native-paper";
+
+LogBox.ignoreAllLogs(); //Ignore all log notifications
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <PaperProvider>
+      <NativeBaseProvider>
+        <NavigationContainer>
+          <AppNavegacion />
+        </NavigationContainer>
+
+        <Toast />
+      </NativeBaseProvider>
+    </PaperProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

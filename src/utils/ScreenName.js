@@ -18,6 +18,11 @@ const PuntuacionStack = {
     puntuacion: "Puntuacion"
 }
 
+const PuntuacionesStack = {
+  tab: "PuntuacionesTab",
+  puntuaciones: "Puntuaciones",
+};
+
 const JuegoStack = {
   tab: "JuegoTab",
   juego: "Juego",
@@ -28,14 +33,60 @@ const JuegoRestaStack = {
   juegor: "JuegoResta",
 };
 
+const JuegoRestaFacilStack = {
+  tab: "JuegoRestaFacilTab",
+  juegorf: "JuegoRestaFacil",
+};
+
+const JuegoRestaMedioStack = {
+  tab: "JuegoRestaMedioTab",
+  juegorm: "JuegoRestaMedio",
+};
+
+
+const JuegoMulFacilStack = {
+  tab: "JuegoMulFacilTab",
+  juegomf: "JuegoMulFacil",
+};
+
+const JuegoMulMedioStack = {
+  tab: "JuegoMulMedioTab",
+  juegomm: "JuegoMulMedio",
+};
+
 const JuegoMulStack = {
   tab: "JuegoMulTab",
   juegom: "JuegoMul",
 };
 
+const JuegoSumaFacilStack = {
+  tab: "JuegoSumaFacilStack",
+  juegosfs: "JuegoSumaFacil",
+};
+
+const JuegoSumaMedioStack = {
+  tab: "JuegoSumaMedioStack",
+  juegosms: "JuegoSumaMedio",
+};
+
+const JuegoSumaDificilStack = {
+  tab: "JuegoSumaDificilStack",
+  juegosds: "JuegoSumaDificil",
+};
+
 const JuegoDivStack = {
   tab: "JuegoDivTab",
   juegod: "JuegoDvi",
+};
+
+const JuegoDivFacilStack = {
+  tab: "JuegoDivFacilTab",
+  juegodf: "JuegoDivFacil",
+};
+
+const JuegoDivMedioStack = {
+  tab: "JuegoDivMedioTab",
+  juegodm: "JuegoDivMedio",
 };
 
 const AcertijoStack = {
@@ -61,4 +112,14 @@ export const screen = {
   juegor: JuegoRestaStack,
   juegom: JuegoMulStack,
   juegod: JuegoDivStack,
+  juegosfs: JuegoSumaFacilStack,
+  juegosms: JuegoSumaMedioStack,
+  juegosds: JuegoSumaDificilStack,
+  juegorf: JuegoRestaFacilStack,
+  juegorm: JuegoRestaMedioStack,
+  juegomf: JuegoMulFacilStack,
+  juegomm: JuegoMulMedioStack,
+  juegodf: JuegoDivFacilStack,
+  juegodm: JuegoDivMedioStack,
+  puntuaciones: PuntuacionesStack,
 };

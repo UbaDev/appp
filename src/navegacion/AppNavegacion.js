@@ -7,9 +7,18 @@ import {CuentaStack } from './CuentaStack';
 import {InicioStack } from './InicioStack'; 
 import {JuegoStack } from './JuegoStack'; 
 import {JuegoRestaStack } from './JuegoRestaStack'; 
+import {JuegoRestaFacilStack } from './JuegoRestaFacilStack'; 
+import {JuegoRestaMedioStack } from './JuegoRestaMedioStack'; 
 import {JuegoMulStack } from './JuegoMulStack'; 
+import {JuegoMulFacilStack } from './JuegoMulFacilStack'; 
+import {JuegoMulMedioStack } from './JuegoMulMedioStack'; 
 import {JuegoDivStack } from './JuegoDivStack'; 
+import {JuegoDivFacilStack } from './JuegoDivFacilStack'; 
+import {JuegoDivMedioStack } from './JuegoDivMedioStack'; 
 import {AcertijoStack } from './AcertijoStack'; 
+import { JuegoSumaFacilStack } from "./JuegoSumaFacilStack"; 
+import { JuegoSumaMedioStack } from "./JuegoSumaMedioStack"; 
+import { JuegoSumaDificilStack } from "./JuegoSumaDificilStack"; 
 
 
 
@@ -57,6 +66,105 @@ export function AppNavegacion(){
         <Tab.Screen
           name={screen.juego.tab}
           component={JuegoStack}
+          options={{
+            title: "Juego",
+            tabBarStyle: { display: "none" },
+            tabBarButton: () => null,
+            tabBarVisible: false,
+          }}
+        ></Tab.Screen>
+
+        <Tab.Screen
+          name={screen.juegorf.tab}
+          component={JuegoRestaFacilStack}
+          options={{
+            title: "Juego",
+            tabBarStyle: { display: "none" },
+            tabBarButton: () => null,
+            tabBarVisible: false,
+          }}
+        ></Tab.Screen>
+
+        <Tab.Screen
+          name={screen.juegodf.tab}
+          component={JuegoDivFacilStack}
+          options={{
+            title: "Juego",
+            tabBarStyle: { display: "none" },
+            tabBarButton: () => null,
+            tabBarVisible: false,
+          }}
+        ></Tab.Screen>
+
+        <Tab.Screen
+          name={screen.juegodm.tab}
+          component={JuegoDivMedioStack}
+          options={{
+            title: "Juego",
+            tabBarStyle: { display: "none" },
+            tabBarButton: () => null,
+            tabBarVisible: false,
+          }}
+        ></Tab.Screen>
+
+        <Tab.Screen
+          name={screen.juegorm.tab}
+          component={JuegoRestaMedioStack}
+          options={{
+            title: "Juego",
+            tabBarStyle: { display: "none" },
+            tabBarButton: () => null,
+            tabBarVisible: false,
+          }}
+        ></Tab.Screen>
+
+        <Tab.Screen
+          name={screen.juegomf.tab}
+          component={JuegoMulFacilStack}
+          options={{
+            title: "Juego",
+            tabBarStyle: { display: "none" },
+            tabBarButton: () => null,
+            tabBarVisible: false,
+          }}
+        ></Tab.Screen>
+
+        <Tab.Screen
+          name={screen.juegomm.tab}
+          component={JuegoMulMedioStack}
+          options={{
+            title: "Juego",
+            tabBarStyle: { display: "none" },
+            tabBarButton: () => null,
+            tabBarVisible: false,
+          }}
+        ></Tab.Screen>
+
+        <Tab.Screen
+          name={screen.juegosfs.tab}
+          component={JuegoSumaFacilStack}
+          options={{
+            title: "Juego",
+            tabBarStyle: { display: "none" },
+            tabBarButton: () => null,
+            tabBarVisible: false,
+          }}
+        ></Tab.Screen>
+
+        <Tab.Screen
+          name={screen.juegosms.tab}
+          component={JuegoSumaMedioStack}
+          options={{
+            title: "Juego",
+            tabBarStyle: { display: "none" },
+            tabBarButton: () => null,
+            tabBarVisible: false,
+          }}
+        ></Tab.Screen>
+
+        <Tab.Screen
+          name={screen.juegosds.tab}
+          component={JuegoSumaDificilStack}
           options={{
             title: "Juego",
             tabBarStyle: { display: "none" },

@@ -89,34 +89,35 @@ export function JuegoScreen() {
   };
 
 
-  const [color, setColor] = useState("#fff");
+  const [color, setColor] = useState("#ccc");
 
   const checkAnswer = () => {
-    if(parseInt(answer) === eval(puzzle)){
-        setScore(score + 1);
-        setTimeLeft(timeLeft + 2);
-        setMulti( multi + 1)
-      
+    if (parseInt(answer) === eval(puzzle)) {
+      setScore(score + 1);
+      setTimeLeft(timeLeft + 2);
+      setMulti(multi + 1);
 
-        console.log(multi)
+      setColor("green");
+
+      console.log(multi);
     } else {
-
-        setTimeLeft(timeLeft - 3);
-        setMulti(1)
-        console.log(multi);
+      setTimeLeft(timeLeft - 3);
+      setMulti(1);
+      console.log(multi);
+      setColor("red");
     }
 
     if (multi <= 5 && parseInt(answer) === eval(puzzle)) {
       setScore(score + 1);
-    } 
+    }
 
     if (multi > 5 && parseInt(answer) === eval(puzzle)) {
       setScore(score + 2);
-    } 
+    }
 
-     if (multi > 10 && parseInt(answer) === eval(puzzle)) {
+    if (multi > 10 && parseInt(answer) === eval(puzzle)) {
       setScore(score + 3);
-    } 
+    }
 
     if (multi > 15 && parseInt(answer) === eval(puzzle)) {
       setScore(score + 4);
@@ -124,8 +125,8 @@ export function JuegoScreen() {
 
     if (multi > 20 && parseInt(answer) === eval(puzzle)) {
       setScore(score + 5);
-    } 
-    
+    }
+
     generatePuzzle();
   };
 

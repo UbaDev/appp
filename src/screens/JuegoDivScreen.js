@@ -17,14 +17,15 @@ import { Flex } from "native-base";
 export function JuegoDivScreen() {
   const navigation = useNavigation();
 
-  const [puzzle, setPuzzle] = useState("");
+  const [equation, setEquation] = useState("");
+  const [options, setOptions] = useState([]);
   const [answer, setAnswer] = useState("");
   const [score, setScore] = useState(0);
   const [multi, setMulti] = useState(0);
   const [timeLeft, setTimeLeft] = useState(60);
 
   useEffect(() => {
-    generatePuzzle();
+    generateEquation();
   }, []);
 
   const back = () => {
@@ -70,55 +71,79 @@ export function JuegoDivScreen() {
     ]);
   };
 
-  const generatePuzzle = () => {
-    const num1 = Math.floor(Math.random() * 10) + 1;
-    const num2 = Math.floor(Math.random() * 10) + 1;
-
-    const operator = Math.random() > 0.5 ? "/" : "/";
-    const puzzleString = `${num1} ${operator} ${num2}`;
-    const puzzleAnswer = operator === "/" ? num1 / num2 : num1 / num2;
-    setPuzzle(puzzleString);
-    setAnswer("");
+  const generateEquation = () => {
+    const a = Math.floor(Math.random() * 70) + 1;
+    const b = Math.floor(Math.random() * 70) + 1;
+    const equationString = ` ${b} / ${a}`;
+    const correctAnswer = (b/ a);
+    const incorrectAnswers = generateIncorrectAnswers(correctAnswer);
+    const allOptions = [correctAnswer, ...incorrectAnswers];
+    shuffleArray(allOptions);
+    setEquation(equationString);
+    setAnswer(correctAnswer);
+    setOptions(allOptions);
   };
 
-  const checkAnswer = () => {
-    if (parseInt(answer) === eval(puzzle)) {
+  const generateIncorrectAnswers = (correctAnswer) => {
+    const incorrectAnswers = [];
+    while (incorrectAnswers.length < 2) {
+      const randNum = Math.floor(Math.random() * 80) - 10;
+      if (randNum !== correctAnswer && !incorrectAnswers.includes(randNum)) {
+        incorrectAnswers.push(randNum);
+      }
+    }
+    return incorrectAnswers;
+  };
+
+  const shuffleArray = (array) => {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+  };
+
+  const handleOptionPress = (selectedAnswer) => {
+    if (selectedAnswer === answer) {
       setScore(score + 1);
       setTimeLeft(timeLeft + 2);
       setMulti(multi + 1);
-
-      console.log("sdcadc", eval(puzzle));
-
-      console.log(multi);
     } else {
-        console.log("sdcadc", eval(puzzle));
       setTimeLeft(timeLeft - 3);
       setMulti(1);
-      console.log(multi);
     }
 
-    if (multi <= 5 && parseInt(answer) === eval(puzzle)) {
+    if (multi <= 5 && selectedAnswer === answer) {
       setScore(score + 1);
     }
 
-    if (multi > 5 && parseInt(answer) === eval(puzzle)) {
+    if (multi > 5 && selectedAnswer === answer) {
       setScore(score + 2);
     }
 
-    if (multi > 10 && parseInt(answer) === eval(puzzle)) {
+    if (multi > 10 && selectedAnswer === answer) {
       setScore(score + 3);
     }
 
-    if (multi > 15 && parseInt(answer) === eval(puzzle)) {
+    if (multi > 15 && selectedAnswer === answer) {
       setScore(score + 4);
     }
 
-    if (multi > 20 && parseInt(answer) === eval(puzzle)) {
+    if (multi > 20 && selectedAnswer === answer) {
       setScore(score + 5);
     }
-
-    generatePuzzle();
+    generateEquation();
   };
+
+  useEffect(() => {
+    const timer =
+      timeLeft > 0 &&
+      setInterval(() => {
+        setTimeLeft(timeLeft - 1);
+      }, 1000);
+    return () => clearInterval(timer);
+  }, [timeLeft]);
+
+  const [color, setColor] = useState("#ccc");
 
   const [visible, setVisible] = React.useState(false);
 
@@ -242,43 +267,44 @@ export function JuegoDivScreen() {
         </View>
 
         <View style={styles.container}>
-          <Text style={styles.puzzle}>{puzzle} </Text>
-          {timeLeft === 0 ? (
-            <TextInput
-              style={styles.input}
-              keyboardType="numeric"
-              value={answer}
-              placeholder="Juego terminado..."
-              editable={false}
-              onChangeText={setAnswer}
-            />
-          ) : (
-            <TextInput
-              style={styles.input}
-              keyboardType="numeric"
-              value={answer}
-              placeholder="Respuesta"
-              onChangeText={setAnswer}
-            />
-          )}
+          <Text style={styles.puzzle}>{equation}</Text>
 
-          {timeLeft === 0 ? (
-            <TouchableHighlight onPress={mensaje}>
-              <Image
-                source={require("../../assets/verificado.png")}
-                style={{ width: 85, height: 85 }}
-              />
-            </TouchableHighlight>
-          ) : (
-            <TouchableHighlight onPress={checkAnswer}>
-              <Image
-                source={require("../../assets/verificado.png")}
-                style={{ width: 85, height: 85 }}
-              />
-            </TouchableHighlight>
-          )}
+          {options.map((option, index) => (
+            <View style={{}}>
+              {timeLeft === 0 ? (
+                <Button
+                  style={[styles.button, { backgroundColor: "#000" }]}
+                  key={index}
+                  disabled
+                  onPress={() => handleOptionPress(option)}
+                >
+                  <Text style={{ color: "#fff", fontSize: 21 }}>
+                    {parseFloat(option).toFixed(2)}
+                  </Text>
+                </Button>
+              ) : (
+                <Button
+                  style={styles.button}
+                  key={index}
+                  onPress={() => handleOptionPress(option)}
+                >
+                  <Text style={{ color: "#fff", fontSize: 21 }}>
+                    {parseFloat(option).toFixed(2)}
+                  </Text>
+                </Button>
+              )}
+            </View>
+          ))}
 
-          <View className="d-flex flex-row  items-center mt-16">
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
+              marginTop: 50,
+            }}
+          >
             <Text style={{ fontSize: 23, marginHorizontal: 30 }}>
               Puntuación: {score}
             </Text>
@@ -313,8 +339,8 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   puzzle: {
-    fontSize: 70,
-    marginBottom: 160,
+    fontSize: 60,
+    marginBottom: 40,
   },
   input: {
     borderWidth: 1,
@@ -329,5 +355,17 @@ const styles = StyleSheet.create({
   score: {
     fontSize: 20,
     marginTop: 90,
+  },
+
+  button: {
+    display: "flex",
+    justifyContent: "center",
+    backgroundColor: "#333",
+    color: "#fff",
+    width: 300,
+    height: 80,
+    marginVertical: 10,
+
+    opacity: 0.7,
   },
 });

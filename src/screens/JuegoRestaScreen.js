@@ -71,51 +71,57 @@ export function JuegoRestaScreen() {
   };
 
   const generatePuzzle = () => {
-    const num1 = Math.floor(Math.random() * 10) + 1;
-    const num2 = Math.floor(Math.random() * 10) + 1;
+    const num1 = Math.floor(Math.random() * 100) + 1;
+    const num2 = Math.floor(Math.random() * 100) + 1;
+    const num3 = Math.floor(Math.random() * 100) + 1;
 
     const operator = Math.random() > 0.5 ? "-" : "-";
-    const puzzleString = `${num1} ${operator} ${num2}`;
-    const puzzleAnswer = operator === "-" ? num1 - num2 : num1 - num2;
+    const puzzleString = `${num1} ${operator} ${num2} ${operator} ${num3}`;
+    const puzzleAnswer = operator === "-" ? num1 - num2 - num3 : num1 - num2 - num3;
     setPuzzle(puzzleString);
     setAnswer("");
   };
 
-  const checkAnswer = () => {
-    if (parseInt(answer) === eval(puzzle)) {
-      setScore(score + 1);
-      setTimeLeft(timeLeft + 2);
-      setMulti(multi + 1);
+const [color, setColor] = useState("#ccc");
 
-      console.log(multi);
-    } else {
-      setTimeLeft(timeLeft - 3);
-      setMulti(1);
-      console.log(multi);
-    }
+const checkAnswer = () => {
+  if (parseInt(answer) === eval(puzzle)) {
+    setScore(score + 1);
+    setTimeLeft(timeLeft + 2);
+    setMulti(multi + 1);
 
-    if (multi <= 5 && parseInt(answer) === eval(puzzle)) {
-      setScore(score + 1);
-    }
+    setColor("green");
 
-    if (multi > 5 && parseInt(answer) === eval(puzzle)) {
-      setScore(score + 2);
-    }
+    console.log(multi);
+  } else {
+    setTimeLeft(timeLeft - 3);
+    setMulti(1);
+    console.log(multi);
+    setColor("red");
+  }
 
-    if (multi > 10 && parseInt(answer) === eval(puzzle)) {
-      setScore(score + 3);
-    }
+  if (multi <= 5 && parseInt(answer) === eval(puzzle)) {
+    setScore(score + 1);
+  }
 
-    if (multi > 15 && parseInt(answer) === eval(puzzle)) {
-      setScore(score + 4);
-    }
+  if (multi > 5 && parseInt(answer) === eval(puzzle)) {
+    setScore(score + 2);
+  }
 
-    if (multi > 20 && parseInt(answer) === eval(puzzle)) {
-      setScore(score + 5);
-    }
+  if (multi > 10 && parseInt(answer) === eval(puzzle)) {
+    setScore(score + 3);
+  }
 
-    generatePuzzle();
-  };
+  if (multi > 15 && parseInt(answer) === eval(puzzle)) {
+    setScore(score + 4);
+  }
+
+  if (multi > 20 && parseInt(answer) === eval(puzzle)) {
+    setScore(score + 5);
+  }
+
+  generatePuzzle();
+};
 
   const [visible, setVisible] = React.useState(false);
 
@@ -251,7 +257,7 @@ export function JuegoRestaScreen() {
             />
           ) : (
             <TextInput
-              style={styles.input}
+              style={[styles.input, { borderColor: color }]}
               keyboardType="numeric"
               value={answer}
               placeholder="Respuesta"
@@ -275,7 +281,15 @@ export function JuegoRestaScreen() {
             </TouchableHighlight>
           )}
 
-          <View className="d-flex flex-row  items-center mt-16">
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
+              marginTop: 50,
+            }}
+          >
             <Text style={{ fontSize: 23, marginHorizontal: 30 }}>
               Puntuación: {score}
             </Text>
@@ -310,7 +324,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   puzzle: {
-    fontSize: 70,
+    fontSize: 60,
     marginBottom: 160,
   },
   input: {
